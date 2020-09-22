@@ -1,0 +1,23 @@
+{% extends 'base_with_bottombar.html' %}
+{% load static %}
+
+{% block css_link_block %}
+<link rel="stylesheet" href="{% static 'css/seller_home.css' %}" />
+{% endblock %}
+
+
+{% block title_block %}
+home
+{% endblock %}
+
+{% block content %}
+Name : {{businessName}} <br>
+address : {{businessAddress}} <br>
+{% if ShopImageDownloadUrl %}
+    <img src="{{ShopImageDownloadUrl}}" alt="no image" width="50%">
+{% endif %}
+{% endblock %}
+
+{% block js_link_block %}
+<script type="text/javascript" src="js/seller_home.js"></script>
+{% endblock %}

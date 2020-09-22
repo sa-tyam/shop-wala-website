@@ -1,0 +1,32 @@
+{% extends 'base_without_bottombar.html' %}
+{% load static %}
+{% block css_link_block %}
+<link rel="stylesheet" href="{% static 'css/user_phone_form.css' %}" />
+{% endblock %}
+
+
+{% block title_block %}
+phone number
+{% endblock %}
+
+{% block content %}
+<h1>Give your whatsapp number</h1>
+<br>
+<form class="phone-number-form" id="phone-number-form" method="post">
+    {% csrf_token %}
+    <input type="text" name="phone-number" id="phone-number" value="">
+    <div class="recaptcha_div" id="recaptcha-container" > </div>
+    <button type="button" onclick="onSignInSubmit();" name="sign-in-button" id="sign-in-button">Send Code</button>
+</form>
+<h1>Enter verification code</h1>
+<br>
+<form class="otp-form" id="otp-form" method="post">
+    {% csrf_token %}
+    <input type="text" name="otp-number" id="otp-number" value="">
+    <button type="button" onclick="codeVerify();" name="button">Verify</button>
+</form>
+{% endblock %}
+
+{% block js_link_block %}
+<script type="text/javascript" src="js/user_phone_form.js"></script>
+{% endblock %}

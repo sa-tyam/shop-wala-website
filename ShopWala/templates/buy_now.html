@@ -1,0 +1,27 @@
+{% extends 'base_without_bottombar.html' %}
+{% load static %}
+{% block css_link_block %}
+{% endblock %}
+
+
+{% block title_block %}
+buy now
+{% endblock %}
+
+{% block content %}
+<h1>Buy Now</h1>
+<form class="" action="/place_order/?z={{productId}}" method="post">
+    {% csrf_token %}
+    name: <input type="text" name="name" value="" required> <br>
+    phone number: <input type="text" name="mobile" value="" required><br>
+    item count: <input type="number" name="itemCount" value="" required><br>
+    payment: <input type="text" name="payment" value="" required><br>
+    address: <input type="text" name="address" value="" required><br>
+    pincode: <input type="number" name="pinCode" value="" required><br>
+
+    <input type="submit" name="" value="Place Order">
+</form>
+{% endblock %}
+
+{% block js_link_block %}
+{% endblock %}

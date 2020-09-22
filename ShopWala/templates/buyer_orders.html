@@ -1,0 +1,35 @@
+{% extends 'base_with_bottombar.html' %}
+{% load static %}
+{% block css_link_block %}
+<link rel="stylesheet" href="{% static 'css/buyer_orders.css' %}" />
+{% endblock %}
+
+
+{% block title_block %}
+{% endblock %}
+
+{% block content %}
+<h1>Orders</h1>
+{% if product_item_list%}
+{% for product_buyerMobile, product_itemCount, product_orderId, product_orderStatus, product_orderTime, product_payment, product_price, product_productId, product_address, product_buyerName, product_pinCode in product_item_list %}
+    <div class="ctg-item">
+        product_buyerMobile: {{product_buyerMobile}}<br
+        product_itemCount: {{product_itemCount}}<br>
+        product_orderId: {{product_orderId}}<br>
+        product_orderStatus: {{product_orderStatus}}<br>
+        product_orderTime: {{product_orderTime}}<br>
+        product_payment: {{product_payment}}<br>
+        product_price: {{product_price}}<br>
+        product_productId: {{product_productId}}<br>
+        product_address: {{product_address}}<br>
+        product_buyerName: {{product_buyerName}}<br>
+        product_pinCode: {{product_pinCode}}<br>
+        <br><br><br>
+    </div>
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block js_link_block %}
+<script type="text/javascript" src="js/buyer_orders.js"></script>
+{% endblock %}
