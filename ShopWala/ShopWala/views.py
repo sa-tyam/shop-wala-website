@@ -4,15 +4,15 @@ from django.shortcuts import render
 
 
 config = {
-
-	"apiKey": "AIzaSyAL_jkxmrREpofhhEJdepzp_8aMhnXACrA",
-    "authDomain": "shopwala-2f42b.firebaseapp.com",
-    "databaseURL": "https://shopwala-2f42b.firebaseio.com",
-    "projectId": "shopwala-2f42b",
-    "storageBucket": "shopwala-2f42b.appspot.com",
-    "messagingSenderId": "953563316424",
-    "appId": "1:953563316424:web:821a2829891601feb265fd",
-    "measurementId": "G-V041QJLZEW"
+	
+	"apiKey": "AIzaSyDRubtggu0E5vViTRpCktXzkKRirXQ-YJk",
+    "authDomain": "shopwala-30b81.firebaseapp.com",
+    "databaseURL": "https://shopwala-30b81.firebaseio.com",
+    "projectId": "shopwala-30b81",
+    "storageBucket": "shopwala-30b81.appspot.com",
+    "messagingSenderId": "985974321760",
+    "appId": "1:985974321760:web:878d3bc1dcf7b8c6074905",
+    "measurementId": "G-HB2G1L5Z07"
 }
 
 pyre_firebase = pyrebase.initialize_app(config)
