@@ -11,13 +11,41 @@ home
 {% endblock %}
 
 {% block content %}
-Name : {{businessName}} <br>
-address : {{businessAddress}} <br>
+
+<div class="logo-image-div">
+    <img id="shopwala-logo-image" src="{% static 'images/logo.png' %}" alt="no image">
+</div>
+
+<div class="shop-name-div">
+    <span id="shop-name">{{businessName}}</span>
+</div>
+
 {% if ShopImageDownloadUrl %}
-    <img src="{{ShopImageDownloadUrl}}" alt="no image" width="50%">
+    <div class="shop-image-div">
+        <img id="shop-image" src="{{ShopImageDownloadUrl}}" alt="no image">
+    </div>
+{% else %}
+<div class="shop-image-div">
+    <img id="shop-image" src="{% static 'images/default-shop.jpg' %}" alt="no image">
+</div>
 {% endif %}
+
+<div class="shop-address-div">
+    <span id="shop-address">{{businessAddress}}</span>
+</div>
+
+<div class="shopwala-customercare-header-div">
+	<span id="shopwala-customercare-header">FOR ANY SUPPORT CONTACT</span>
+</div>
+<div class="shopwala-customercare-name-div">
+	<span id="shopwala-customercare-name">ShopWala</span>
+</div>
+<div class="shopwala-customercare-div">
+	<span id="shopwala-customercare">+91-9090909090</span>
+</div>
+
 {% endblock %}
 
 {% block js_link_block %}
-<script type="text/javascript" src="js/seller_home.js"></script>
+<script src="{% static "js/seller_home.js" %}"></script>
 {% endblock %}

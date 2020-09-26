@@ -1,0 +1,174 @@
+.order-detail-header-div {
+		width: 90%;
+		margin: 10px auto;
+	}
+
+	#order-detail-header {
+		font-size: 180%;
+	}
+
+	.order-detail-id-status-div{
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 20px !important;
+
+	}
+
+	#order-id {
+		font-size: 150%;
+		font-weight: bold;
+	}
+
+	#order-status-small {
+		font-size: 100%;
+		color: grey;
+		float: right;
+	}
+
+	.order-time-div {
+		width: 90%;
+		margin: 0 auto;
+		margin-bottom: 20px !important;
+	}
+
+	#order-time {
+		font-size: 120%;
+		color: grey;
+	}
+
+	.order-status-div {
+		width: 90%;
+		margin: 30px auto;
+		border-bottom: 1px solid grey;
+		border-top: 1px solid grey;
+	}
+
+	#order-status {
+		font-size: 200%;
+		font-weight: bold;
+	}
+
+	.order-item-count-div {
+		width: 90%;
+		margin: 20px auto;
+	}
+
+	#order-item-count {
+		font-size: 150%;
+	}
+
+		.order-item-container-div{
+			width: 90%;
+			margin:30px auto;
+			align-items: center;
+			border-bottom: : 1px solid grey;
+			padding: 5px;
+		}
+
+		.order-image-container-div {
+		    width: 80px;
+		    height: 80px;
+		    float: left;
+		}
+
+		.order-item-description-div {
+			margin: 5px auto;
+		}
+
+		#order-image {
+			width: 90% !important;
+			height: 90% !important;
+			object-fit: cover;
+		}
+
+		.order-item-row {
+			width: 100%;
+		}
+
+		#order-item-name {
+			font-size: 150%;
+			font-weight: bold;
+		}
+
+		#order-price-small {
+			font-size: 150%;
+			font-weight: bold;
+		}
+
+	.customer-details-header-div {
+		width: 90%;
+		margin: 30px auto;
+		border-top: 1px solid grey;
+		border-bottom: 1px solid grey;
+	}
+
+	#customer-details-header {
+		font-size: 150%;
+		color: grey;
+	}
+
+
+	.customer-name-div {
+		width: 90%;
+		margin: 10px auto;
+	}
+
+	#customer-name-text {
+		width: 100px;
+	}
+
+	#customer-name {
+
+	}
+
+	.customer-mobile-div {
+		width: 90%;
+		margin: 10px auto;
+	}
+
+	#customer-mobile-text {
+		width: 100px;
+	}
+
+	#customer-mobile {
+
+	}
+
+	.customer-address-div {
+		width: 90%;
+		margin: 10px auto;
+	}
+
+	#customer-address-text {
+		width: 100px;
+	}
+
+	#customer-address {
+
+	}
+
+	.customer-pincode-div {
+		width: 90%;
+		margin: 10px auto;
+	}
+
+	#customer-pincode-text {
+		width: 100px;
+	}
+
+	#customer-pincode {
+
+	}
+
+	.customer-city-div {
+		width: 90%;
+		margin: 10px auto;
+	}
+
+	#customer-city-text {
+		width: 100px;
+	}
+
+	#customer-city {
+
+	}

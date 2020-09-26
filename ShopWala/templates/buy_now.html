@@ -1,6 +1,7 @@
 {% extends 'base_without_bottombar.html' %}
 {% load static %}
 {% block css_link_block %}
+<link rel="stylesheet" href="{% static 'css/buy_now.css' %}" />
 {% endblock %}
 
 
@@ -9,19 +10,63 @@ buy now
 {% endblock %}
 
 {% block content %}
-<h1>Buy Now</h1>
-<form class="" action="/place_order/?z={{productId}}" method="post">
-    {% csrf_token %}
-    name: <input type="text" name="name" value="" required> <br>
-    phone number: <input type="text" name="mobile" value="" required><br>
-    item count: <input type="number" name="itemCount" value="" required><br>
-    payment: <input type="text" name="payment" value="" required><br>
-    address: <input type="text" name="address" value="" required><br>
-    pincode: <input type="number" name="pinCode" value="" required><br>
+<div class="buy-now-header">
+    <h1>Buy {{product_item_name}}</h1>
+</div>
+<div class="buy-now-product-description-div">
+    <div class="product-image-container-div">
+        {% if product_item_imageUrl %}
+            <img id="product-image" src="{{product_item_imageUrl}}" alt="no img">
+        {% else %}
+            <img id="product-image" src="{% static 'images/default-product.jpg' %}" alt="no img">
+        {% endif %}
+    </div>
+    <div class="product-item-description-div">
+        <div class="product-item-name-div product-item-text-div">
+            <span id="product-name">{{product_item_name}}</span>
+        </div>
+        <div class="product-item-quantityType-name-div product-item-text-div">
+            <span id="product-quantity-type">{{product_item_quantityType}}</span>
+        </div>
+</div>
 
-    <input type="submit" name="" value="Place Order">
-</form>
+<div class="buy-now-price-div">
+
+</div>
+
+<div class="buy-now-form-div container">
+    <form class="" action="/place_order/?z={{productId}}" method="post">
+        {% csrf_token %}
+        <div class="buy-now-inputs-div">
+            <input class="buy-now-inputs" type="text" name="name" value="" placeholder="Name" required>
+        </div>
+        <div class="buy-now-inputs-div">
+            <input class="buy-now-inputs" type="text" name="mobile" value="" placeholder="Mobile Number" required>
+        </div>
+        <div class="buy-now-inputs-div">
+            <input class="buy-now-inputs" type="number" name="itemCount" value="" placeholder="No. of items" required>
+        </div>
+        <div class="buy-now-inputs-div">
+            <input class="buy-now-inputs" type="text" name="address" value="" placeholder="Address" required>
+        </div>
+        <div class="buy-now-inputs-div">
+            <input class="buy-now-inputs" type="text" name="city" value="" placeholder="City" required>
+        </div>
+        <div class="buy-now-inputs-div">
+            <input class="buy-now-inputs" type="number" name="pinCode" value="" placeholder="Pin Code" required>
+        </div>
+        <div class="buy-now-inputs-div buy-now-payment-div">
+            <span id="payment-method-header-span">PAYMENT METHOD</span><br>
+            <span id="payment-method-span">Cash on delivery</span>
+        </div>
+        <div class="buy-now-place-order-button">
+            <input class="buy-now-inputs" type="submit" name="" value="Place Order">
+        </div>
+
+    </form>
+</div>
 {% endblock %}
 
 {% block js_link_block %}
+<script src="{% static "js/buy_now.js" %}"></script>
 {% endblock %}

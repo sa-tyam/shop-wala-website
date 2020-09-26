@@ -1,16 +1,16 @@
 {% extends 'base_with_bottombar.html' %}
 {% load static %}
 {% block css_link_block %}
-<link rel="stylesheet" href="{% static 'css/seller_category_detail.css' %}" />
+<link rel="stylesheet" href="{% static 'css/seller_product_detail.css' %}" />
 {% endblock %}
 
 
 {% block title_block %}
-category_details
+product details
 {% endblock %}
 
 {% block content %}
-<h1>product detail</h1>
+<h1>product details</h1>
 {% for name,description,price,quantityType,productCategory,productId, product_item_imageUrl in product_item_list %}
     <div class="ctg-item">
         name: {{name}}<br>description: {{description}} <br>price: {{price}} <br>quantityType: {{quantityType}} <br>productCategory: {{productCategory}} <br>productId: {{productId}} <br>
@@ -32,5 +32,5 @@ category_details
 {% endblock %}
 
 {% block js_link_block %}
-<script type="text/javascript" src="js/seller_category_detail.js"></script>
+<script src="{% static "js/seller_product_detail.js" %}"></script>
 {% endblock %}

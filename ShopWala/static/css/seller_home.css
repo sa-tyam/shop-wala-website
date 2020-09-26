@@ -1,0 +1,70 @@
+        .logo-image-div {
+            width: 100%;
+        }
+
+        #shopwala-logo-image {
+            width: 100%;
+            height: 100%;
+        }
+
+        .shop-name-div{
+            width: 100%;
+            text-align: center;
+        }
+
+        #shop-name {
+            font-size: 300%;
+            font-weight: bold;
+        }
+
+        .shop-image-div {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            align-items: center;
+        }
+
+        #shop-image {
+            width: 100%;
+            height: 100%;
+            margin: auto;
+        }
+
+        .shop-address-div{
+            width: 100%;
+            text-align: center;
+        }
+
+        #shop-address {
+            font-size: 120%;
+        }
+
+        .shopwala-customercare-header-div{
+        	margin-top: 150px;
+            width: 100%;
+            text-align: center;
+        }
+
+        #shopwala-customercare-header {
+            font-size: 100%;
+            color: grey;
+        }
+
+        .shopwala-customercare-name-div{
+            width: 100%;
+            text-align: center;
+        }
+
+        #shopwala-customercare-name {
+            font-size: 180%;
+            color: grey;
+        }
+
+        .shopwala-customercare-div{
+            width: 100%;
+            text-align: center;
+        }
+
+        #shopwala-customercare {
+            font-size: 200%;
+        }

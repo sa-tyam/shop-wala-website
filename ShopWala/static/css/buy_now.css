@@ -1,0 +1,59 @@
+.buy-now-header{
+    width: 90%;
+    margin: 10px auto;
+}
+
+.buy-now-product-description-div {
+    width: 90%;
+    margin: 10px auto;
+}
+
+.product-image-container-div {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    float: left;
+}
+
+#product-image {
+    width: 90% !important;
+    height: 90% !important;
+    object-fit: cover;
+}
+
+
+.product-item-description-div{
+    width: 100%;
+}
+
+.product-item-text-div {
+    width: 100%;
+    padding-left: 10px !important;
+}
+
+.buy-now-form-div {
+    width: 90%;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.buy-now-inputs-div {
+    width: 90%;
+    margin: 20px auto;
+    font-size: 130%;
+    align-items: center;
+}
+
+.buy-now-inputs {
+    width: 100%;
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+}
+
+#payment-method-header-span {
+    font-size: 80% !important;
+}
+#payment-method-span {
+    font-size: 110% !important;
+}

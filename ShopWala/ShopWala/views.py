@@ -4,14 +4,15 @@ from django.shortcuts import render
 
 
 config = {
-	"apiKey": "AIzaSyDRubtggu0E5vViTRpCktXzkKRirXQ-YJk",
-	"authDomain": "shopwala-30b81.firebaseapp.com",
-	"databaseURL": "https://shopwala-30b81.firebaseio.com",
-	"projectId": "shopwala-30b81",
-	"storageBucket": "shopwala-30b81.appspot.com",
-	"messagingSenderId": "985974321760",
-	"appId": "1:985974321760:web:878d3bc1dcf7b8c6074905",
-	"measurementId": "G-HB2G1L5Z07"
+
+	"apiKey": "AIzaSyAL_jkxmrREpofhhEJdepzp_8aMhnXACrA",
+    "authDomain": "shopwala-2f42b.firebaseapp.com",
+    "databaseURL": "https://shopwala-2f42b.firebaseio.com",
+    "projectId": "shopwala-2f42b",
+    "storageBucket": "shopwala-2f42b.appspot.com",
+    "messagingSenderId": "953563316424",
+    "appId": "1:953563316424:web:821a2829891601feb265fd",
+    "measurementId": "G-V041QJLZEW"
 }
 
 pyre_firebase = pyrebase.initialize_app(config)
@@ -63,6 +64,37 @@ def PostSignIn(request):
 	request.session['user_mobile'] = str(user_mobile)
 	return render(request, 'seller_home.html')
 
+def LandingPage (request):
+
+	request.session.modified = True
+	seller_phone = request.GET.get('seller_phone')
+	seller_phone = "+" + seller_phone
+	request.session['seller_phone'] = str(seller_phone)
+
+	if not request.session.get('user_id', None):
+		print("session not found")
+		return render(request, 'signin.html')
+
+	shop_views =  pyrebase_database.child("Sellers").child(seller_phone).child("StoreViews").child("storeViews").get().val()
+	print(shop_views)
+	shop_views = int(shop_views)
+	print(shop_views)
+	shop_views = shop_views + 1
+	print(shop_views)
+	shop_views_data = {
+		"storeViews" : shop_views,
+	}
+	pyrebase_database.child("Sellers").child(seller_phone).child("StoreViews").set(shop_views_data)
+
+	businessName = pyrebase_database.child("Sellers").child(seller_phone).child("businessName").get().val()
+	businessAddress = pyrebase_database.child("Sellers").child(seller_phone).child("businessAddress").get().val()
+	ShopImageDownloadUrl = pyrebase_database.child("Sellers").child(seller_phone).child("ShopImageDownloadUrl").get().val()
+
+	return render(request, 'seller_home.html', {"businessName" : businessName,
+												"businessAddress" : businessAddress,
+												"ShopImageDownloadUrl" : ShopImageDownloadUrl,})
+
+
 def SellerHome (request):
 	if not request.session.get('seller_phone', None):
 		seller_phone = request.GET.get('seller_phone')
@@ -83,7 +115,7 @@ def SellerHome (request):
 												"businessAddress" : businessAddress,
 												"ShopImageDownloadUrl" : ShopImageDownloadUrl,})
 
-def SellerCategories (request):
+def SellerProducts (request):
 
 	phoneNumber = request.session['seller_phone']
 	temp_list = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").shallow().get().val()
@@ -115,10 +147,21 @@ def SellerCategories (request):
 
 	product_item_list = zip(product_item_name_list, product_item_description_list, product_item_price_list, product_item_quantityType_list, product_item_productCategory_list, product_item_productId_list, product_item_imageUrl_list)
 
-	return render(request, 'seller_categories.html', {"product_item_list":product_item_list})
+	return render(request, 'seller_products.html', {"product_item_list":product_item_list})
 
-def SellerCategoriesDetails (request):
+def SellerProductDetails (request):
 	phoneNumber = request.session['seller_phone']
+
+	product_views =  pyrebase_database.child("Sellers").child(phoneNumber).child("ProductViews").child("productViews").get().val()
+	print(product_views)
+	product_views = int(product_views)
+	print(product_views)
+	product_views = product_views + 1
+	print(product_views)
+	product_views_data = {
+		"productViews" : product_views,
+	}
+	pyrebase_database.child("Sellers").child(phoneNumber).child("ProductViews").set(product_views_data)
 
 	item = request.GET.get('z')
 	product_item_list = []
@@ -147,7 +190,7 @@ def SellerCategoriesDetails (request):
 
 	product_item_list = zip(product_item_name_list, product_item_description_list, product_item_price_list, product_item_quantityType_list, product_item_productCategory_list, product_item_productId_list, product_item_imageUrl_list)
 
-	return render(request, 'seller_category_detail.html', {"product_item_list":product_item_list})
+	return render(request, 'seller_product_detail.html', {"product_item_list":product_item_list})
 
 def AddToBag (request):
 	if not request.session.get('user_mobile', None):
@@ -170,11 +213,26 @@ def AddToBag (request):
 		if userId:
 			pyrebase_database.child("Verified-Buyers").child(userId).child(user_mobile).child("bag").child(productId).push(data)
 
-		return render(request, 'seller_categories.html')
+		return BuyerBag(request)
 
 def BuyNow (request):
 	productId = request.GET.get('z')
-	return render(request, 'buy_now.html', {"productId":productId})
+
+	phoneNumber = request.session['seller_phone']
+	deliveryCharge = pyrebase_database.child("Sellers").child(phoneNumber).child("deliveryCharges").child("deliveryCharge").get().val()
+	deliveryFreeOver = pyrebase_database.child("Sellers").child(phoneNumber).child("deliveryCharges").child("deliveryChargeFreeOrder").get().val()
+
+	product_item_name = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(productId).child("name").get().val()
+	product_item_quantityType = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(productId).child("quantityType").get().val()
+	product_item_imageUrl = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(productId).child("productImageUrl").get().val()
+
+
+	return render(request, 'buy_now.html', {"productId":productId,
+											"product_item_name":product_item_name,
+											"product_item_quantityType":product_item_quantityType,
+											"product_item_imageUrl":product_item_imageUrl,
+											"deliveryCharge":deliveryCharge,
+											"deliveryFreeOver":deliveryFreeOver})
 
 def PlaceOrder (request) :
 
@@ -207,9 +265,10 @@ def PlaceOrder (request) :
 	buyerMobile = "+91" + buyerMobile
 	name = request.POST.get('name')
 	itemCount = request.POST.get('itemCount')
-	payment = request.POST.get('payment')
+	payment = "COD"
 	address = request.POST.get('address')
 	pinCode = request.POST.get('pinCode')
+	buyerCity = request.POST.get('city')
 
 	productId = request.GET.get('z')
 
@@ -239,6 +298,7 @@ def PlaceOrder (request) :
 		"address": address,
 		"buyerName" : name,
 		"pinCode":pinCode,
+		"buyerCity":buyerCity,
 	}
 
 	buyer_data = {
@@ -264,6 +324,9 @@ def PlaceOrder (request) :
 	pyrebase_database.child("Orders").child("All").child(orderId).set(order_order_data)
 	pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).set(seller_order_data)
 	pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("pending").child(orderId).set(pending_order_data)
+
+	pyrebase_database.child("Verified-Buyers").child(userId).child(user_mobile).child("bag").child(orderId).remove()
+
 	return render(request, 'seller_home.html')
 
 def BuyerBag (request):
@@ -303,6 +366,7 @@ def BuyerBag (request):
 	product_item_quantityType_list = []
 	product_item_productCategory_list = []
 	product_item_productId_list = []
+	product_item_imageUrl_list = []
 	for item in temp_list:
 		product_item_productId = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("productId").get().val()
 		print(product_item_productId)
@@ -320,11 +384,85 @@ def BuyerBag (request):
 			product_item_quantityType_list.append(product_item_quantityType)
 			product_item_productCategory = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("productCategory").get().val()
 			product_item_productCategory_list.append(product_item_productCategory)
+			product_item_imageUrl = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("productImageUrl").get().val()
+			product_item_imageUrl_list.append(product_item_imageUrl)
 
 
-	product_item_list = zip(product_item_name_list, product_item_description_list, product_item_price_list, product_item_quantityType_list, product_item_productCategory_list, product_item_productId_list)
+	product_item_list = zip(product_item_name_list, product_item_description_list, product_item_price_list, product_item_quantityType_list, product_item_productCategory_list, product_item_productId_list, product_item_imageUrl_list)
 
 	return render(request, 'buyer_bag.html', {'product_item_list': product_item_list})
+
+def BuyerOrderDetails (request):
+	orderId = request.GET.get('z')
+
+	phoneNumber = request.session['seller_phone']
+	userId = ""
+	user_mobile = "0"
+	if not request.session.get('user_mobile', None):
+		print("session not found")
+		return render(request, 'signin.html')
+	else:
+		user_mobile = request.session['user_mobile']
+
+	if not request.session.get('user_id', None):
+		print("session not found")
+		return render(request, 'signin.html')
+	else:
+		print("session found")
+		userId = request.session['user_id']
+
+	product_item_list = []
+
+	product_buyerMobile_list = []
+	product_itemCount_list = []
+	product_orderId_list = []
+	product_orderStatus_list = []
+	product_orderTime_list = []
+	product_payment_list = []
+	product_price_list = []
+	product_productId_list = []
+	product_address_list = []
+	product_buyerName_list = []
+	product_pinCode_list = []
+	product_buyerCity_list = []
+	product_imageUrl_list = []
+	product_item_name_list = []
+
+
+	product_item_orderId = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("orderId").get().val()
+	product_orderId_list.append(product_item_orderId)
+	product_buyerMobile = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("buyerMobile").get().val()
+	product_buyerMobile_list.append(product_buyerMobile)
+	product_itemCount = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("itemCount").get().val()
+	product_itemCount_list.append(product_itemCount)
+	product_orderStatus = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("orderStatus").get().val()
+	product_orderStatus_list.append(product_orderStatus)
+	product_orderTime = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("orderTime").get().val()
+	product_orderTime_list.append(product_orderTime)
+	product_payment = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("payment").get().val()
+	product_payment_list.append(product_payment)
+	product_price = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("price").get().val()
+	product_price_list.append(product_price)
+	product_productId = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("productId").get().val()
+	product_productId_list.append(product_productId)
+	product_address = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("address").get().val()
+	product_address_list.append(product_address)
+	product_buyerName = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("buyerName").get().val()
+	product_buyerName_list.append(product_buyerName)
+	product_pinCode = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("pinCode").get().val()
+	product_pinCode_list.append(product_pinCode)
+	product_buyerCity = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(orderId).child("buyerCity").get().val()
+	product_buyerCity_list.append(product_buyerCity)
+
+	product_imageUrl = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(product_productId).child("productImageUrl").get().val()
+	product_imageUrl_list.append(product_imageUrl)
+	product_item_name = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(product_productId).child("name").get().val()
+	product_item_name_list.append(product_item_name)
+
+	product_item_list = zip(product_buyerMobile_list, product_itemCount_list, product_orderId_list, product_orderStatus_list, product_orderTime_list, product_payment_list, product_price_list, product_productId_list, product_address_list, product_buyerName_list, product_pinCode_list, product_buyerCity_list, product_imageUrl_list, product_item_name_list)
+
+	return render(request, 'buyer_order_details.html', {'product_item_list': product_item_list})
+
 
 def BuyerOrders (request):
 	phoneNumber = request.session['seller_phone']
@@ -370,38 +508,39 @@ def BuyerOrders (request):
 	product_address_list = []
 	product_buyerName_list = []
 	product_pinCode_list = []
+	product_imageUrl_list = []
 
-	for item in temp_list:
-		product_item_orderId = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("orderId").get().val()
-		print(product_item_orderId)
-		if str(product_item_orderId) in bag_items:
-			print("yes")
+	if temp_list:
+		for item in temp_list:
+			product_item_orderId = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("orderId").get().val()
 			print(product_item_orderId)
-			product_orderId_list.append(product_item_orderId)
-			product_buyerMobile = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("buyerMobile").get().val()
-			product_buyerMobile_list.append(product_buyerMobile)
-			product_itemCount = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("itemCount").get().val()
-			product_itemCount_list.append(product_itemCount)
-			product_orderStatus = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("orderStatus").get().val()
-			product_orderStatus_list.append(product_orderStatus)
-			product_orderTime = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("orderTime").get().val()
-			product_orderTime_list.append(product_orderTime)
-			product_payment = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("payment").get().val()
-			product_payment_list.append(product_payment)
-			product_price = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("price").get().val()
-			product_price_list.append(product_price)
-			product_productId = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("productId").get().val()
-			product_productId_list.append(product_productId)
-			product_address = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("address").get().val()
-			product_address_list.append(product_address)
-			product_buyerName = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("buyerName").get().val()
-			product_buyerName_list.append(product_buyerName)
-			product_pinCode = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("pinCode").get().val()
-			product_pinCode_list.append(product_pinCode)
+			if str(product_item_orderId) in bag_items:
+				print("yes")
+				print(product_item_orderId)
+				product_orderId_list.append(product_item_orderId)
+				product_buyerMobile = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("buyerMobile").get().val()
+				product_buyerMobile_list.append(product_buyerMobile)
+				product_itemCount = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("itemCount").get().val()
+				product_itemCount_list.append(product_itemCount)
+				product_orderStatus = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("orderStatus").get().val()
+				product_orderStatus_list.append(product_orderStatus)
+				product_orderTime = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("orderTime").get().val()
+				product_orderTime_list.append(product_orderTime)
+				product_payment = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("payment").get().val()
+				product_payment_list.append(product_payment)
+				product_price = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("price").get().val()
+				product_price_list.append(product_price)
+				product_productId = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("productId").get().val()
+				product_productId_list.append(product_productId)
+				product_address = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("address").get().val()
+				product_address_list.append(product_address)
+				product_buyerName = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("buyerName").get().val()
+				product_buyerName_list.append(product_buyerName)
+				product_pinCode = pyrebase_database.child("Sellers").child(phoneNumber).child("orders").child("all").child(item).child("pinCode").get().val()
+				product_pinCode_list.append(product_pinCode)
+				product_imageUrl = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(product_productId).child("productImageUrl").get().val()
+				product_imageUrl_list.append(product_imageUrl)
 
-
-
-
-	product_item_list = zip(product_buyerMobile_list, product_itemCount_list, product_orderId_list, product_orderStatus_list, product_orderTime_list, product_payment_list, product_price_list, product_productId_list, product_address_list, product_buyerName_list, product_pinCode_list)
+	product_item_list = zip(product_buyerMobile_list, product_itemCount_list, product_orderId_list, product_orderStatus_list, product_orderTime_list, product_payment_list, product_price_list, product_productId_list, product_address_list, product_buyerName_list, product_pinCode_list, product_imageUrl_list)
 
 	return render(request, 'buyer_orders.html', {'product_item_list': product_item_list})

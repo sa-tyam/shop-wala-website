@@ -1,5 +1,5 @@
-{% extends 'base_with_bottombar' %}
-
+{% extends 'base_with_bottombar.html' %}
+{% load static %}
 {% block css_link_block %}
 <link rel="stylesheet" href="{% static 'css/buyer_order_details.css' %}" />
 {% endblock %}
@@ -9,8 +9,79 @@
 {% endblock %}
 
 {% block content %}
+
+<div class="order-detail-header-div">
+	<span id="order-detail-header">Order Details</span>
+</div>
+
+{% if product_item_list%}
+{% for product_buyerMobile, product_itemCount, product_orderId, product_orderStatus, product_orderTime, product_payment, product_price, product_productId, product_address, product_buyerName, product_pinCode, product_buyerCity, product_imageUrl, product_item_name in product_item_list %}
+
+<div class="order-detail-id-status-div">
+	<span id="order-id">Order Id: {{product_orderId}}</span>
+	<span id="order-status-small">{{product_orderStatus}}</span>
+</div>
+
+<div class="order-time-div">
+	<span id="order-time">{{product_orderTime}}</span>
+</div>
+
+<div class="order-status-div">
+	<span id="order-status">{{product_orderStatus}}</span>
+</div>
+
+<div class="order-item-count-div">
+	<span id="order-item-count">{{product_itemCount}} items</span>
+</div>
+<div class="order-item-container-div">
+        <div class="order-image-container-div">
+			{% if product_imageUrl %}
+                <img id="order-image" src="{{product_imageUrl}}" alt="no img">
+            {% else %}
+                <img id="order-image" src="{% static 'images/default-product.jpg' %}" alt="no img">
+            {% endif %}
+        </div>
+        <div class="order-item-description-div">
+        	<div class="order-item-row">
+        		<span id="order-item-name">{{product_item_name}}</span>
+        	</div>
+        	<div class="order-price-div-small">
+    		<span id="order-price-small">${{product_price}}</span>
+        	</div>
+    	</div>
+ </div>
+
+	<div class="customer-details-header-div">
+		<span id="customer-details-header">CUSTOMER'S DETAILS</span>
+	</div>
+	<div class="customer-name-div">
+		<span id="customer-name-text">Name:</span>
+		<span id="customer-name">{{product_buyerName}}</span>
+	</div>
+	<div class="customer-mobile-div">
+		<span id="customer-mobile-text">Mobile:</span>
+		<span id="customer-mobile">{{product_buyerMobile}}</span>
+	</div>
+	<div class="customer-address-div">
+		<span id="customer-address-text">Address:</span>
+		<span id="customer-address">{{product_address}}</span>
+	</div>
+	<div class="customer-pincode-div">
+		<span id="customer-pincode-text">Pin Code:</span>
+		<span id="customer-pincode">{{product_pinCode}}</span>
+	</div>
+	<div class="customer-city-div">
+		<span id="customer-city-text">City:</span>
+		<span id="customer-city">{{product_buyerCity}}</span>
+	</div>
+
+{% endfor %}
+{% endif %}
+
+
+
 {% endblock %}
 
 {% block js_link_block %}
-<script type="text/javascript" src="js/buyer_order_details.js"></script>
+<script src="{% static "js/buyer_order_details.js" %}"></script>
 {% endblock %}

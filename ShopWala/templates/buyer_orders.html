@@ -2,6 +2,99 @@
 {% load static %}
 {% block css_link_block %}
 <link rel="stylesheet" href="{% static 'css/buyer_orders.css' %}" />
+
+<style media="screen">
+    .odrder-header-div {
+    			width: 90%;
+    			margin:10px auto;
+    		}
+
+    		#order-header {
+    			font-size: 200%;
+    		}
+
+    		.log-out-div {
+    			width: 90%;
+    			margin:10px auto;
+    			margin-bottom: 30px;
+    		}
+
+    		#phone-number {
+    			color: grey;
+    			font-size: 200%;
+    		}
+
+    		#sign-out-text {
+    			color: grey;
+    			font-size: 200%;
+    			float: right;
+    		}
+
+    		.order-item-container-div{
+    			width: 90%;
+    			margin:10px auto;
+    			align-items: center;
+    			border: 1px solid grey;
+    			padding: 5px;
+    		}
+
+    		.order-image-container-div {
+    		    width: 100px;
+    		    height: 110px;
+    		    float: left;
+    		}
+
+    		.order-item-description-div {
+    			margin: 10px auto;
+    		}
+
+    		#order-image {
+    			width: 90% !important;
+    			height: 90% !important;
+    			object-fit: cover;
+    		}
+
+    		.order-item-row {
+    			width: 100%;
+    			margin: 10px auto;
+    		}
+
+    		#order-id {
+    			font-size: 150%;
+    			font-weight: bold;
+    		}
+
+    		#order-price {
+    			font-size: 150%;
+    			font-weight: bold;
+    			float: right;
+    		}
+
+    		#order-item-count {
+    			font-size: 80%;
+    			color: grey;
+    		}
+
+    		#order-time {
+    			font-size: 80%;
+    			color: grey;
+    			float: right;
+    		}
+
+    		#order-status {
+    			font-size: 80%;
+    			color: grey;
+    		}
+
+    		#order-detail {
+    			font-size: 80%;
+    			color: grey;
+    			float: right;
+    			font-style: normal;
+    		}
+
+</style>
+
 {% endblock %}
 
 
@@ -9,27 +102,45 @@
 {% endblock %}
 
 {% block content %}
-<h1>Orders</h1>
+    <div class="odrder-header-div">
+		<span id="order-header">My Orders</span>
+	</div>
+
+	<div class="log-out-div">
+		<span id="phone-number">9079674231</span>
+		<span id="sign-out-text"><a href="#">Sign out</a></span>
+	</div>
 {% if product_item_list%}
-{% for product_buyerMobile, product_itemCount, product_orderId, product_orderStatus, product_orderTime, product_payment, product_price, product_productId, product_address, product_buyerName, product_pinCode in product_item_list %}
-    <div class="ctg-item">
-        product_buyerMobile: {{product_buyerMobile}}<br
-        product_itemCount: {{product_itemCount}}<br>
-        product_orderId: {{product_orderId}}<br>
-        product_orderStatus: {{product_orderStatus}}<br>
-        product_orderTime: {{product_orderTime}}<br>
-        product_payment: {{product_payment}}<br>
-        product_price: {{product_price}}<br>
-        product_productId: {{product_productId}}<br>
-        product_address: {{product_address}}<br>
-        product_buyerName: {{product_buyerName}}<br>
-        product_pinCode: {{product_pinCode}}<br>
-        <br><br><br>
-    </div>
+{% for product_buyerMobile, product_itemCount, product_orderId, product_orderStatus, product_orderTime, product_payment, product_price, product_productId, product_address, product_buyerName, product_pinCode, product_imageUrl in product_item_list %}
+
+        <div class="order-item-container-div">
+            <div class="order-image-container-div">
+                {% if product_imageUrl %}
+                    <img id="order-image" src="{{product_imageUrl}}" alt="no img">
+                {% else %}
+                    <img id="order-image" src="{% static 'images/default-product.jpg' %}" alt="no img">
+                {% endif %}
+            </div>
+            <div class="order-item-description-div">
+                <div class="order-item-row">
+                    <span id="order-id">Order #{{product_orderId}}</span>
+                    <span id="order-price">${{product_price}}</span>
+                </div>
+
+                <div class="order-item-row">
+                    <span id="order-item-count">{{product_itemCount}} items</span>
+                    <span id="order-time">{{product_orderTime}}</span>
+                </div>
+                <div class="order-item-row">
+                    <span id="order-status">{{product_orderStatus}}</span>
+                    <span id="order-detail"><a href="/buyer_order_details/?z={{product_orderId}}">Details</a></span>
+                 </div>
+            </div>
+        </div>
 {% endfor %}
 {% endif %}
 {% endblock %}
 
 {% block js_link_block %}
-<script type="text/javascript" src="js/buyer_orders.js"></script>
+<script src="{% static "js/buyer_orders.js" %}"></script>
 {% endblock %}

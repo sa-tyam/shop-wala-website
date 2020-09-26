@@ -11,20 +11,28 @@
          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
          crossorigin="anonymous">
          <link rel="stylesheet" href="{% static 'css/base_with_bottombar.css' %}" />
+         <style>
+             html, body {
+             max-width: 100%;
+             overflow-x: hidden;
+            }
+         </style>
     </head>
     <body>
 
-        {% block content %}
-        {% endblock %}
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
 
         <div class="bottom-space-div">
 
         </div>
 
         <div class = "footer">
-            <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-light">
                   <a class="nav-link nav-item" href="{% url 'seller_home'%}">Home</a>
-                  <a class="nav-link nav-item" href="{% url 'seller_categories'%}">Products</a>
+                  <a class="nav-link nav-item" href="{% url 'seller_products'%}">Products</a>
                   <a class="nav-link nav-item" href="{% url 'buyer_bag'%}">Bag</a>
                   <a class="nav-link nav-item" href="{% url 'buyer_orders'%}">Orders</a>
             </nav>
