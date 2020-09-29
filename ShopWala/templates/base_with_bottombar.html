@@ -11,6 +11,7 @@
          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
          crossorigin="anonymous">
          <link rel="stylesheet" href="{% static 'css/base_with_bottombar.css' %}" />
+         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
          <style>
              html, body {
              max-width: 100%;
@@ -35,6 +36,7 @@
                   <a class="nav-link nav-item" href="{% url 'seller_products'%}">Products</a>
                   <a class="nav-link nav-item" href="{% url 'buyer_bag'%}">Bag</a>
                   <a class="nav-link nav-item" href="{% url 'buyer_orders'%}">Orders</a>
+                  <a class="nav-link nav-item" href="{% url 'phoneVerify'%}">Phone Verify</a>
             </nav>
         </div>
 
@@ -47,14 +49,14 @@
         <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
 
         <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-        <script src="https://www.gstatic.com/firebasejs/7.20.-/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
 
         <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
-        <script src="https://www.gstatic.com/firebasejs/7.20.-/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-analytics.js"></script>
 
         <!-- Add Firebase products that you want to use -->
-        <script src="https://www.gstatic.com/firebasejs/7.20.-/firebase-auth.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.20.-/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
 
         <script>
           // Your web app's Firebase configuration

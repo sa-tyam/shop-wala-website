@@ -1,4 +1,5 @@
-{% extends 'base_without_bottombar' %}
+{% extends 'base_without_bottombar.html' %}
+{% load static %}
 
 {% block css_link_block %}
 <link rel="stylesheet" href="{% static 'css/user_otp_form.css' %}" />
@@ -6,9 +7,58 @@
 
 
 {% block title_block %}
+otp verification
 {% endblock %}
 
 {% block content %}
+
+<h1>Enter verification code</h1>
+<br>
+<form class="otp-form" id="otp-form" method="post">
+    {% csrf_token %}
+    <div id="recaptcha-container"></div>
+    <input type="text" name="otp-number" id="otp-number" value="">
+    <button type="button" id="sign-in-button" onclick="render();" name="sign-in-button">Verify</button>
+</form>
+
+<script type="text/javascript">
+    function render() {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+          'size': 'invisible',
+          'callback': function(response) {
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            phoneAuth();
+          }
+        });
+    }
+    function phoneAuth(){
+        var number = {{phoneNumber}};
+        firebase.auth().signInWithPhoneNumber(number,window.recaptchaVerifier).then(function(confirmationResult){
+            window.confirmationResult = confirmationResult;
+            coderesult = confirmationResult;
+            console.log(coderesult);
+            alert("Message sent");
+        }).catch(function(error){
+            alert(error.message);
+        });
+    }
+    function codeVerify() {
+        var number = {{phoneNumber}};
+        var code = document.getElementById('otp-number');
+        coderesult.confirm(code).then(function(result) {
+            alert("successfuly registered");
+            var user = result.user;
+            console.log(user);
+            session_id = user.uid.toString();
+            sessionStorage.setItem("user_id", session_id);
+            sessionStorage.setItem("user_mobile", number);
+            window.location.replace("{% url 'seller_home' %}");
+        }).catch(function(error){
+            alert(error.message);
+        });
+    }
+</script>
+
 {% endblock %}
 
 

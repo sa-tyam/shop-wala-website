@@ -26,6 +26,7 @@ urlpatterns = [
     path('', views.LandingPage, name='landing_page'),
     path('home/', views.SellerHome, name='seller_home'),
     path('signin/', views.SignIn, name='signin'),
+    path('phoneVerify/', views.PhoneVerify, name='phoneVerify'),
     path('signup/', views.SignUp, name='signup'),
     path('post_signup/', views.PostSignUp, name='post_signup'),
     path('post_signin/', views.PostSignIn, name='post_signin'),

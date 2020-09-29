@@ -4,15 +4,15 @@ from django.shortcuts import render
 
 
 config = {
-	
-	"apiKey": "AIzaSyDRubtggu0E5vViTRpCktXzkKRirXQ-YJk",
-    "authDomain": "shopwala-30b81.firebaseapp.com",
-    "databaseURL": "https://shopwala-30b81.firebaseio.com",
-    "projectId": "shopwala-30b81",
-    "storageBucket": "shopwala-30b81.appspot.com",
-    "messagingSenderId": "985974321760",
-    "appId": "1:985974321760:web:878d3bc1dcf7b8c6074905",
-    "measurementId": "G-HB2G1L5Z07"
+
+	"apiKey": "AIzaSyAL_jkxmrREpofhhEJdepzp_8aMhnXACrA",
+    "authDomain": "shopwala-2f42b.firebaseapp.com",
+    "databaseURL": "https://shopwala-2f42b.firebaseio.com",
+    "projectId": "shopwala-2f42b",
+    "storageBucket": "shopwala-2f42b.appspot.com",
+    "messagingSenderId": "953563316424",
+    "appId": "1:953563316424:web:821a2829891601feb265fd",
+    "measurementId": "G-V041QJLZEW"
 }
 
 pyre_firebase = pyrebase.initialize_app(config)
@@ -20,6 +20,36 @@ pyre_firebase = pyrebase.initialize_app(config)
 pyrebase_auth = pyre_firebase.auth()
 
 pyrebase_database = pyre_firebase.database()
+
+def LandingPage (request):
+
+	request.session.modified = True
+	seller_phone = request.GET.get('seller_phone')
+	seller_phone = "+" + seller_phone
+	request.session['seller_phone'] = str(seller_phone)
+
+	if not request.session.get('user_id', None):
+		print("session not found")
+		return render(request, 'signin.html')
+
+	shop_views =  pyrebase_database.child("Sellers").child(seller_phone).child("StoreViews").child("storeViews").get().val()
+	print(shop_views)
+	shop_views = int(shop_views)
+	print(shop_views)
+	shop_views = shop_views + 1
+	print(shop_views)
+	shop_views_data = {
+		"storeViews" : shop_views,
+	}
+	pyrebase_database.child("Sellers").child(seller_phone).child("StoreViews").set(shop_views_data)
+
+	businessName = pyrebase_database.child("Sellers").child(seller_phone).child("businessName").get().val()
+	businessAddress = pyrebase_database.child("Sellers").child(seller_phone).child("businessAddress").get().val()
+	ShopImageDownloadUrl = pyrebase_database.child("Sellers").child(seller_phone).child("ShopImageDownloadUrl").get().val()
+
+	return render(request, 'seller_home.html', {"businessName" : businessName,
+												"businessAddress" : businessAddress,
+												"ShopImageDownloadUrl" : ShopImageDownloadUrl,})
 
 def SignUp (request):
 
@@ -64,36 +94,17 @@ def PostSignIn(request):
 	request.session['user_mobile'] = str(user_mobile)
 	return render(request, 'seller_home.html')
 
-def LandingPage (request):
+def PhoneVerify (request):
+	return render(request, 'user_phone_form.html')
 
-	request.session.modified = True
-	seller_phone = request.GET.get('seller_phone')
-	seller_phone = "+" + seller_phone
-	request.session['seller_phone'] = str(seller_phone)
+def PostPhoneVerify (request):
+	phoneNumber = request.POST.get('phone-number')
+	phoneNumber = "+91"+ phoneNumber
+	return render(request, 'user_otp_form.html', {"phoneNumber":phoneNumber})
 
-	if not request.session.get('user_id', None):
-		print("session not found")
-		return render(request, 'signin.html')
+def UserOtpVerification (request):
 
-	shop_views =  pyrebase_database.child("Sellers").child(seller_phone).child("StoreViews").child("storeViews").get().val()
-	print(shop_views)
-	shop_views = int(shop_views)
-	print(shop_views)
-	shop_views = shop_views + 1
-	print(shop_views)
-	shop_views_data = {
-		"storeViews" : shop_views,
-	}
-	pyrebase_database.child("Sellers").child(seller_phone).child("StoreViews").set(shop_views_data)
-
-	businessName = pyrebase_database.child("Sellers").child(seller_phone).child("businessName").get().val()
-	businessAddress = pyrebase_database.child("Sellers").child(seller_phone).child("businessAddress").get().val()
-	ShopImageDownloadUrl = pyrebase_database.child("Sellers").child(seller_phone).child("ShopImageDownloadUrl").get().val()
-
-	return render(request, 'seller_home.html', {"businessName" : businessName,
-												"businessAddress" : businessAddress,
-												"ShopImageDownloadUrl" : ShopImageDownloadUrl,})
-
+	return render (request, 'user_otp_form.html')
 
 def SellerHome (request):
 	if not request.session.get('seller_phone', None):
