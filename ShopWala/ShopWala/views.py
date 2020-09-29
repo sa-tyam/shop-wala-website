@@ -30,7 +30,7 @@ def LandingPage (request):
 
 	if not request.session.get('user_id', None):
 		print("session not found")
-		return render(request, 'signin.html')
+		return render(request, 'user_phone_form.html')
 
 	shop_views =  pyrebase_database.child("Sellers").child(seller_phone).child("StoreViews").child("storeViews").get().val()
 	print(shop_views)
@@ -116,7 +116,7 @@ def SellerHome (request):
 
 	if not request.session.get('user_id', None):
 		print("session not found")
-		return render(request, 'signin.html')
+		return render(request, 'user_phone_form.html')
 
 	businessName = pyrebase_database.child("Sellers").child(seller_phone).child("businessName").get().val()
 	businessAddress = pyrebase_database.child("Sellers").child(seller_phone).child("businessAddress").get().val()
@@ -206,7 +206,7 @@ def SellerProductDetails (request):
 def AddToBag (request):
 	if not request.session.get('user_mobile', None):
 		print("session not found")
-		return render(request, 'signin.html')
+		return render(request, 'user_phone_form.html')
 	else:
 		user_mobile = request.session['user_mobile']
 
@@ -260,7 +260,7 @@ def PlaceOrder (request) :
 	user_mobile = "0"
 	if not request.session.get('user_mobile', None):
 		print("session not found")
-		return render(request, 'signin.html')
+		return render(request, 'user_phone_form.html')
 	else:
 		user_mobile = request.session['user_mobile']
 
@@ -347,7 +347,7 @@ def BuyerBag (request):
 	user_mobile = "0"
 	if not request.session.get('user_mobile', None):
 		print("session not found")
-		return render(request, 'signin.html')
+		return render(request, 'user_phone_form.html')
 	else:
 		user_mobile = request.session['user_mobile']
 
@@ -378,25 +378,26 @@ def BuyerBag (request):
 	product_item_productCategory_list = []
 	product_item_productId_list = []
 	product_item_imageUrl_list = []
-	for item in temp_list:
-		product_item_productId = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("productId").get().val()
-		print(product_item_productId)
-		if str(product_item_productId) in bag_items:
-			print("yes")
+	if temp_list:
+		for item in temp_list:
+			product_item_productId = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("productId").get().val()
 			print(product_item_productId)
-			product_item_productId_list.append(product_item_productId)
-			product_item_name = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("name").get().val()
-			product_item_name_list.append(product_item_name)
-			product_item_description = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("description").get().val()
-			product_item_description_list.append(product_item_description)
-			product_item_price = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("price").get().val()
-			product_item_price_list.append(product_item_price)
-			product_item_quantityType = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("quantityType").get().val()
-			product_item_quantityType_list.append(product_item_quantityType)
-			product_item_productCategory = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("productCategory").get().val()
-			product_item_productCategory_list.append(product_item_productCategory)
-			product_item_imageUrl = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("productImageUrl").get().val()
-			product_item_imageUrl_list.append(product_item_imageUrl)
+			if str(product_item_productId) in bag_items:
+				print("yes")
+				print(product_item_productId)
+				product_item_productId_list.append(product_item_productId)
+				product_item_name = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("name").get().val()
+				product_item_name_list.append(product_item_name)
+				product_item_description = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("description").get().val()
+				product_item_description_list.append(product_item_description)
+				product_item_price = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("price").get().val()
+				product_item_price_list.append(product_item_price)
+				product_item_quantityType = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("quantityType").get().val()
+				product_item_quantityType_list.append(product_item_quantityType)
+				product_item_productCategory = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("productCategory").get().val()
+				product_item_productCategory_list.append(product_item_productCategory)
+				product_item_imageUrl = pyrebase_database.child("Sellers").child(phoneNumber).child("Products").child(item).child("productImageUrl").get().val()
+				product_item_imageUrl_list.append(product_item_imageUrl)
 
 
 	product_item_list = zip(product_item_name_list, product_item_description_list, product_item_price_list, product_item_quantityType_list, product_item_productCategory_list, product_item_productId_list, product_item_imageUrl_list)
@@ -411,7 +412,7 @@ def BuyerOrderDetails (request):
 	user_mobile = "0"
 	if not request.session.get('user_mobile', None):
 		print("session not found")
-		return render(request, 'signin.html')
+		return render(request, 'user_phone_form.html')
 	else:
 		user_mobile = request.session['user_mobile']
 
@@ -487,7 +488,7 @@ def BuyerOrders (request):
 
 	if not request.session.get('user_id', None):
 		print("session not found")
-		return render(request, 'signin.html')
+		return render(request, 'user_phone_form.html')
 	else:
 		print("session found")
 		userId = request.session['user_id']
