@@ -107,8 +107,8 @@
 	</div>
 
 	<div class="log-out-div">
-		<span id="phone-number">9079674231</span>
-		<span id="sign-out-text"><a href="#">Sign out</a></span>
+		<span id="phone-number">{{user_mobile}}</span>
+		<span id="sign-out-text"><a href="{% url 'sign_out' %}">Sign out</a></span>
 	</div>
 {% if product_item_list%}
 {% for product_buyerMobile, product_itemCount, product_orderId, product_orderStatus, product_orderTime, product_payment, product_price, product_productId, product_address, product_buyerName, product_pinCode, product_imageUrl in product_item_list %}

@@ -12,6 +12,7 @@
          crossorigin="anonymous">
          <link rel="stylesheet" href="{% static 'css/base_with_bottombar.css' %}" />
          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
          <style>
              html, body {
              max-width: 100%;
@@ -30,16 +31,12 @@
 
         </div>
 
-        <div class = "footer">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                  <a class="nav-link nav-item" href="{% url 'seller_home'%}">Home</a>
-                  <a class="nav-link nav-item" href="{% url 'seller_products'%}">Products</a>
-                  <a class="nav-link nav-item" href="{% url 'buyer_bag'%}">Bag</a>
-                  <a class="nav-link nav-item" href="{% url 'buyer_orders'%}">Orders</a>
-            </nav>
+        <div class="icon-bar">
+          <a href="{% url 'seller_home'%}"><i class="fa fa-home"></i></a>
+          <a href="{% url 'seller_products'%}"><i class="fa fa-plus-square"></i></a>
+          <a href="{% url 'buyer_bag'%}"><i class="fa fa-shopping-bag"></i></a>
+          <a href="{% url 'buyer_orders'%}"><i class="fa fa-shopping-cart"></i></a>
         </div>
-
-
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -67,8 +64,8 @@
             projectId: "shopwala-30b81",
             storageBucket: "shopwala-30b81.appspot.com",
             messagingSenderId: "985974321760",
-            appId: "1:985974321760:web:878d3bc1dcf7b8c6074905",
-            measurementId: "G-HB2G1L5Z07"
+            appId: "1:985974321760:web:5e0b595b9fb12e3e074905",
+            measurementId: "G-315RGXNMPX"
           };
           // Initialize Firebase
           firebase.initializeApp(firebaseConfig);

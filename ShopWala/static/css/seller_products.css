@@ -58,3 +58,8 @@
             padding: 2px;
             border: 1px solid grey;
         }
+        .page-header{
+            text-align: center;
+            background: green;
+            color: white;
+        }

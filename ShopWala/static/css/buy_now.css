@@ -1,6 +1,7 @@
-.buy-now-header{
-    width: 90%;
-    margin: 10px auto;
+.page-header{
+    text-align: center;
+    background: green;
+    color: white;
 }
 
 .buy-now-product-description-div {

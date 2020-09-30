@@ -10,7 +10,9 @@ product details
 {% endblock %}
 
 {% block content %}
-<h1>product details</h1>
+<div class="page-header">
+    <h2>PRODUCT DETAIL</h2>
+</div>
 {% for name,description,price,quantityType,productCategory,productId, product_item_imageUrl in product_item_list %}
     <div class="ctg-item">
         name: {{name}}<br>description: {{description}} <br>price: {{price}} <br>quantityType: {{quantityType}} <br>productCategory: {{productCategory}} <br>productId: {{productId}} <br>

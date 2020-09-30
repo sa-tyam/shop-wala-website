@@ -10,7 +10,9 @@
 {% endblock %}
 
 {% block content %}
-<h1>Your Bag</h1>
+<div class="page-header">
+    <h1>YOUR BAG</h1>
+</div>
 {% for name,description,price,quantityType,productCategory,productId,product_item_imageUrl in product_item_list %}
     <div class="product-item-container-div">
         <div class="product-image-container-div">

@@ -2,18 +2,16 @@ import pyrebase
 
 from django.shortcuts import render
 
-
 config = {
-
-	"apiKey": "AIzaSyAL_jkxmrREpofhhEJdepzp_8aMhnXACrA",
-    "authDomain": "shopwala-2f42b.firebaseapp.com",
-    "databaseURL": "https://shopwala-2f42b.firebaseio.com",
-    "projectId": "shopwala-2f42b",
-    "storageBucket": "shopwala-2f42b.appspot.com",
-    "messagingSenderId": "953563316424",
-    "appId": "1:953563316424:web:821a2829891601feb265fd",
-    "measurementId": "G-V041QJLZEW"
-}
+    "apiKey": "AIzaSyDRubtggu0E5vViTRpCktXzkKRirXQ-YJk",
+    "authDomain": "shopwala-30b81.firebaseapp.com",
+    "databaseURL": "https://shopwala-30b81.firebaseio.com",
+    "projectId": "shopwala-30b81",
+    "storageBucket": "shopwala-30b81.appspot.com",
+    "messagingSenderId": "985974321760",
+    "appId": "1:985974321760:web:5e0b595b9fb12e3e074905",
+    "measurementId": "G-315RGXNMPX"
+  };
 
 pyre_firebase = pyrebase.initialize_app(config)
 
@@ -51,49 +49,6 @@ def LandingPage (request):
 												"businessAddress" : businessAddress,
 												"ShopImageDownloadUrl" : ShopImageDownloadUrl,})
 
-def SignUp (request):
-
-	return render (request, 'signup.html')
-
-def PostSignUp (request):
-
-	phone = request.POST.get('phoneNumber')
-	phone = "+91" + phone
-	email = request.POST.get('email')
-	password = request.POST.get('password')
-
-	try:
-		user = pyrebase_auth.create_user_with_email_and_password(email, password)
-	except Exception as e:
-		message = 'something went wrong'
-		return render(request, 'signup.html', {"messg":message})
-
-	data = {
-		"phoneNumber" : phone,
-	}
-	userId = user['localId']
-	pyrebase_database.child("Verified-Buyers").child(userId).child("phone").set(data)
-	return render(request, 'signin.html')
-
-def SignIn (request):
-
-	return render(request, 'signin.html')
-
-def PostSignIn(request):
-	email = request.POST.get('email')
-	password = request.POST.get('password')
-
-	try:
-		user = pyrebase_auth.sign_in_with_email_and_password(email, password)
-	except Exception as e:
-		message = 'wrong credentials'
-		return render(request, 'signin.html', {"messg":message})
-	session_id = user['localId']
-	request.session['user_id'] = str(session_id)
-	user_mobile = pyrebase_database.child("Verified-Buyers").child(session_id).child("phone").child("phoneNumber").get().val()
-	request.session['user_mobile'] = str(user_mobile)
-	return render(request, 'seller_home.html')
-
 def PhoneVerify (request):
 	return render(request, 'user_phone_form.html')
 
@@ -102,9 +57,26 @@ def PostPhoneVerify (request):
 	phoneNumber = "+91"+ phoneNumber
 	return render(request, 'user_otp_form.html', {"phoneNumber":phoneNumber})
 
-def UserOtpVerification (request):
 
-	return render (request, 'user_otp_form.html')
+def LoggedIn (request):
+    request.session.modified = True
+	uid = request.GET.get('uid')
+	request.session['user_id'] = str(uid)
+	phoneNumber = request.GET.get('phoneNumber')
+	request.session['user_mobile'] = str(phoneNumber)
+
+    data = {
+		"phoneNumber" : phone,
+	}
+	pyrebase_database.child("Verified-Buyers").child(uid).child("phone").set(data)
+	return SellerHome(request)
+
+def SignOut (request):
+    try:
+        del request.session['user_id']
+    except Exception as e:
+        pass
+    return SellerHome(request)
 
 def SellerHome (request):
 	if not request.session.get('seller_phone', None):
@@ -555,4 +527,5 @@ def BuyerOrders (request):
 
 	product_item_list = zip(product_buyerMobile_list, product_itemCount_list, product_orderId_list, product_orderStatus_list, product_orderTime_list, product_payment_list, product_price_list, product_productId_list, product_address_list, product_buyerName_list, product_pinCode_list, product_imageUrl_list)
 
-	return render(request, 'buyer_orders.html', {'product_item_list': product_item_list})
+	return render(request, 'buyer_orders.html', {'product_item_list': product_item_list,
+                                                'user_mobile':user_mobile})

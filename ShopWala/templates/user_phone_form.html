@@ -10,13 +10,56 @@ phone number
 {% endblock %}
 
 {% block content %}
-<h1>Give your whatsapp number</h1>
-<br>
-<form class="phone-number-form" id="phone-number-form" method="post">
-    {% csrf_token %}
-    <input type="text" name="phone-number" id="phone-number" value="" required>
-    <button type="button" onclick="location.href='{% url 'userOtpVerification' %}'">Send Code</button>
-</form>
+<div class="form-container">
+		<h1>Give your whatsapp number</h1>
+
+		<form class="phone-number-form" id="phone-number-form" method="post">
+		    <input type="text" name="phone-number" id="phone-number" value="" maxlength = "10" required>
+		    <div id="recaptcha-container"></div>
+		    <button type="button" id="send-code-button" onclick="phoneAuth();">Send Code</button>
+		</form>
+		<h1>Enter verification code</h1>
+		<form class="otp-form" id="otp-form" method="post">
+		    <input type="text" name="otp-number" id="otp-number" maxlength = "6" value="" required>
+		    <div></div>
+		    <button type="button" id="verify-button" onclick="codeVerify();" name="button">Verify</button>
+		</form>
+</div>
+
+<script type="text/javascript">
+    var number;
+    window.onload=function() {
+        render();
+    }
+    function render() {
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
+        recaptchaVerifier.render();
+    }
+    function phoneAuth(){
+        number = document.getElementById('phone-number').value;
+        number = "91"+number;
+        phNumber = "+"+number;
+        firebase.auth().signInWithPhoneNumber(phNumber,window.recaptchaVerifier).then(function(confirmationResult){
+            window.confirmationResult = confirmationResult;
+            coderesult = confirmationResult;
+        }).catch(function(error){
+            alert(error.message);
+        });
+    }
+
+    function codeVerify() {
+        var code = document.getElementById('otp-number').value;
+        alert(code);
+        coderesult.confirm(code).then(function(result) {
+            var user = result.user;
+            console.log(user);
+            user_id = user.uid.toString();
+            window.location.replace("logged_in/?uid="+user_id+"&phoneNumber="+number);
+        }).catch(function(error){
+            alert(error.message);
+        });
+    }
+</script>
 {% endblock %}
 
 {% block js_link_block %}

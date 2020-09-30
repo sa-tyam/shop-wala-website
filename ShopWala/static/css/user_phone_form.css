@@ -1,3 +1,41 @@
-h1 {
-    color: red;
-}
+.form-container{
+			width: 90%;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		#phone-number {
+			font-size: 200%;
+			color: black;
+			text-align: center;
+			margin: 20px;
+			border: 0;
+			border-bottom: 1px solid black;
+		}
+
+		#recaptcha-container {
+			margin: 20px;
+		}
+
+		#send-code-button {
+			padding: 5px;
+			border-radius: 5px;
+			border: 1px solid green;
+			color: green;
+		}
+
+		#otp-number {
+			font-size: 200%;
+			color: grey;
+			text-align: center;
+			margin: 20px;
+			border: 0;
+			border-bottom: 1px solid black;
+		}
+
+		#verify-button {
+			padding: 5px;
+			border-radius: 5px;
+			border: 1px solid green;
+			color: green;
+		}

@@ -25,7 +25,7 @@ SECRET_KEY = '(ouj4p!u3ck!m3d+)^!+iuhgw^_dq39qbjxz4)vx#)mi2u3h9g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.shopwala.link', 'shopwala.pythonanywhere.com']
 
 
 # Application definition
