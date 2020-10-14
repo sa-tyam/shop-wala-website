@@ -4,7 +4,7 @@
 		}
 
 		#order-header {
-			font-size: 200%;
+			font-size: 150%;
 		}
 
 		.log-out-div {
@@ -15,20 +15,21 @@
 
 		#phone-number {
 			color: grey;
-			font-size: 200%;
+			font-size: 110%;
 		}
 
 		#sign-out-text {
 			color: grey;
-			font-size: 200%;
+			font-size: 110%;
 			float: right;
 		}
 
 		.order-item-container-div{
 			width: 90%;
-			margin:10px auto;
+			margin:20px auto;
 			align-items: center;
-			border: 1px solid grey;
+			border: 1px solid #e90030;
+			border-radius:10px;
 			padding: 5px;
 		}
 
@@ -54,12 +55,12 @@
 		}
 
 		#order-id {
-			font-size: 150%;
+			font-size: 100%;
 			font-weight: bold;
 		}
 
 		#order-price {
-			font-size: 150%;
+			font-size: 100%;
 			font-weight: bold;
 			float: right;
 		}

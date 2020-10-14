@@ -4,94 +4,6 @@
 <link rel="stylesheet" href="{% static 'css/buyer_orders.css' %}" />
 
 <style media="screen">
-    .odrder-header-div {
-    			width: 90%;
-    			margin:10px auto;
-    		}
-
-    		#order-header {
-    			font-size: 200%;
-    		}
-
-    		.log-out-div {
-    			width: 90%;
-    			margin:10px auto;
-    			margin-bottom: 30px;
-    		}
-
-    		#phone-number {
-    			color: grey;
-    			font-size: 200%;
-    		}
-
-    		#sign-out-text {
-    			color: grey;
-    			font-size: 200%;
-    			float: right;
-    		}
-
-    		.order-item-container-div{
-    			width: 90%;
-    			margin:10px auto;
-    			align-items: center;
-    			border: 1px solid grey;
-    			padding: 5px;
-    		}
-
-    		.order-image-container-div {
-    		    width: 100px;
-    		    height: 110px;
-    		    float: left;
-    		}
-
-    		.order-item-description-div {
-    			margin: 10px auto;
-    		}
-
-    		#order-image {
-    			width: 90% !important;
-    			height: 90% !important;
-    			object-fit: cover;
-    		}
-
-    		.order-item-row {
-    			width: 100%;
-    			margin: 10px auto;
-    		}
-
-    		#order-id {
-    			font-size: 150%;
-    			font-weight: bold;
-    		}
-
-    		#order-price {
-    			font-size: 150%;
-    			font-weight: bold;
-    			float: right;
-    		}
-
-    		#order-item-count {
-    			font-size: 80%;
-    			color: grey;
-    		}
-
-    		#order-time {
-    			font-size: 80%;
-    			color: grey;
-    			float: right;
-    		}
-
-    		#order-status {
-    			font-size: 80%;
-    			color: grey;
-    		}
-
-    		#order-detail {
-    			font-size: 80%;
-    			color: grey;
-    			float: right;
-    			font-style: normal;
-    		}
 
 </style>
 
@@ -102,9 +14,9 @@
 {% endblock %}
 
 {% block content %}
-    <div class="odrder-header-div">
-		<span id="order-header">My Orders</span>
-	</div>
+   <div class="page-header">
+    <h1>My Orders</h1>
+</div>
 
 	<div class="log-out-div">
 		<span id="phone-number">{{user_mobile}}</span>

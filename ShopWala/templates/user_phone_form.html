@@ -14,12 +14,14 @@ phone number
 		<h1>Give your whatsapp number</h1>
 
 		<form class="phone-number-form" id="phone-number-form" method="post">
+		    {% csrf_token %}
 		    <input type="text" name="phone-number" id="phone-number" value="" maxlength = "10" required>
 		    <div id="recaptcha-container"></div>
 		    <button type="button" id="send-code-button" onclick="phoneAuth();">Send Code</button>
 		</form>
 		<h1>Enter verification code</h1>
 		<form class="otp-form" id="otp-form" method="post">
+		    {% csrf_token %}
 		    <input type="text" name="otp-number" id="otp-number" maxlength = "6" value="" required>
 		    <div></div>
 		    <button type="button" id="verify-button" onclick="codeVerify();" name="button">Verify</button>
@@ -48,8 +50,8 @@ phone number
     }
 
     function codeVerify() {
+        document.getElementById("verify-button").disabled = true;
         var code = document.getElementById('otp-number').value;
-        alert(code);
         coderesult.confirm(code).then(function(result) {
             var user = result.user;
             console.log(user);

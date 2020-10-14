@@ -1,10 +1,14 @@
 .order-detail-header-div {
-		width: 90%;
-		margin: 10px auto;
+	font-size: 150%;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    background: #e90030;
+    color: white;
 	}
 
 	#order-detail-header {
-		font-size: 180%;
+		font-size: 150%;
 	}
 
 	.order-detail-id-status-div{
@@ -15,7 +19,7 @@
 	}
 
 	#order-id {
-		font-size: 150%;
+		font-size: 100%;
 		font-weight: bold;
 	}
 
@@ -32,7 +36,7 @@
 	}
 
 	#order-time {
-		font-size: 120%;
+		font-size: 100%;
 		color: grey;
 	}
 
@@ -54,7 +58,7 @@
 	}
 
 	#order-item-count {
-		font-size: 150%;
+		font-size: 110%;
 	}
 
 		.order-item-container-div{
@@ -86,12 +90,12 @@
 		}
 
 		#order-item-name {
-			font-size: 150%;
+			font-size: 110%;
 			font-weight: bold;
 		}
 
 		#order-price-small {
-			font-size: 150%;
+			font-size: 110%;
 			font-weight: bold;
 		}
 
@@ -103,7 +107,7 @@
 	}
 
 	#customer-details-header {
-		font-size: 150%;
+		font-size: 110%;
 		color: grey;
 	}
 

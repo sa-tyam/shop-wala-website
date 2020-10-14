@@ -59,16 +59,15 @@ def PostPhoneVerify (request):
 
 
 def LoggedIn (request):
-    request.session.modified = True
 	uid = request.GET.get('uid')
+	request.session.modified = True
 	request.session['user_id'] = str(uid)
 	phoneNumber = request.GET.get('phoneNumber')
-	request.session['user_mobile'] = str(phoneNumber)
-
-    data = {
-		"phoneNumber" : phone,
+	request.session['user_mobile']=str(phoneNumber)
+	data = {
+		"phoneNumber" : phoneNumber,
 	}
-	pyrebase_database.child("Verified-Buyers").child(uid).child("phone").set(data)
+	pyrebase_database.child("Verified-Buyers").child(uid).child("phoneNumber").set(data)
 	return SellerHome(request)
 
 def SignOut (request):
@@ -252,6 +251,7 @@ def PlaceOrder (request) :
 	address = request.POST.get('address')
 	pinCode = request.POST.get('pinCode')
 	buyerCity = request.POST.get('city')
+	userDescription = request.POST.get('userDescription')
 
 	productId = request.GET.get('z')
 
@@ -282,6 +282,7 @@ def PlaceOrder (request) :
 		"buyerName" : name,
 		"pinCode":pinCode,
 		"buyerCity":buyerCity,
+        "userDescription":userDescription,
 	}
 
 	buyer_data = {
@@ -310,7 +311,7 @@ def PlaceOrder (request) :
 
 	pyrebase_database.child("Verified-Buyers").child(userId).child(user_mobile).child("bag").child(orderId).remove()
 
-	return render(request, 'seller_home.html')
+	return SellerHome(request)
 
 def BuyerBag (request):
 	phoneNumber = request.session['seller_phone']

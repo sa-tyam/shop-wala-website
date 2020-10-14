@@ -8,9 +8,13 @@ html, body {
     overflow-x: hidden !importants;
 }
 
+.bottom-space-div {
+    height : 100px;
+}
+
 .icon-bar {
   width: 100%;
-  background-color: #555;
+  background-color: #e90030;
   overflow: auto;
   position: fixed;
   bottom: 0px;
@@ -20,16 +24,25 @@ html, body {
   float: left;
   width: 25%;
   text-align: center;
-  padding: 12px 0;
+  padding: 8px 0;
   transition: all 0.3s ease;
   color: white;
-  font-size: 36px;
+  font-size: 20px;
 }
 
 .icon-bar a:hover {
-  background-color: #000;
+  background-color: #006493;
 }
 
 .active {
   background-color: #4CAF50;
+}
+
+.page-header{
+    font-size: 150%;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    background: #e90030;
+    color: white;
 }

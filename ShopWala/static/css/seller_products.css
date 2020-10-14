@@ -1,65 +1,71 @@
-        .product-item-container-div {
-		    height: 200px;
-		    width: 90%;
-		    margin: 10px;
-		}
+.product-item-container-div {
+    height:160px;
+    width: 90%;
+    margin: 20px auto;
+    border: 1px solid #e90030;
+    border-radius:10px;
+}
 
 
-		.product-image-container-div {
+.product-image-container-div {
 
-		    width: 150px;
-            height: 150px;
-		    margin: auto;
-		    float: left;
-		}
+    width: 100px;
+    height: 150px;
+    float: left;
+    margin:auto;
+}
 
-		#product-image {
-			width: 90% !important;
-			height: 90% !important;
-			object-fit: cover;
-		}
-
-
-		.product-item-description-div{
-		    width: 100%;
-		}
-
-		.product-item-text-div {
-		    width: 100%;
-		    padding-left: 10px !important;
-		}
+#product-image {
+    width: 90% !important;
+    height: 90% !important;
+    object-fit: cover;
+}
 
 
-		.product-item-add-to-bag-div {
-		}
+.product-item-description-div{
+    width: 100%;
+}
 
-		.product-item-add-to-bag-div {
-			font-style: normal;
-		}
+.product-item-text-div {
+    width: 100%;
+    padding-left: 10px !important;
+}
 
-        #product-name {
-            font-size: 110%;
-            font-weight: bold;
-        }
 
-        #product-category {
-            font-size: 80%;
-            color: grey;
-        }
-        #product-quantity-type {
-            font-size: 60%;
-            color: grey;
-        }
-        #product-price {
-            font-size: 120%;
-            font-weight: bold;
-        }
-        #add-to-bag{
-            padding: 2px;
-            border: 1px solid grey;
-        }
-        .page-header{
-            text-align: center;
-            background: green;
-            color: white;
-        }
+.product-item-add-to-bag-div {
+}
+
+.product-item-add-to-bag-div {
+    font-style: normal;
+}
+
+#product-name {
+    font-size: 100%;
+    font-weight: bold;
+}
+
+#product-category {
+    font-size: 80%;
+    color: grey;
+}
+#product-quantity-type {
+    font-size: 60%;
+    color: grey;
+}
+#product-price {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.page-header{
+    text-align: center;
+    background: green;
+    color: white;
+}
+.add-product-button {
+    padding-left: :10px;
+    padding-right: 10px;
+    color: white;
+    background-color:#006493;
+    border-radius:5px;
+}

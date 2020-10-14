@@ -1,15 +1,16 @@
 .product-item-container-div {
-    height: 200px;
+    height: 160px;
     width: 90%;
-    margin: 10px;
+    margin: 20px auto;
+    border: 1px solid #e90030;
+    border-radius:10px;
 }
 
 
 .product-image-container-div {
 
-    width: 150px;
+    width: 100px;
     height: 150px;
-    margin: auto;
     float: left;
 }
 
@@ -38,7 +39,7 @@
 }
 
 #product-name {
-    font-size: 110%;
+    font-size: 100%;
     font-weight: bold;
 }
 
@@ -51,15 +52,27 @@
     color: grey;
 }
 #product-price {
-    font-size: 120%;
+    font-size: 100%;
     font-weight: bold;
-}
-#add-to-bag{
-    padding: 2px;
-    border: 1px solid grey;
 }
 .page-header{
     text-align: center;
     background: green;
+    color: white;
+}
+.add-product-button {
+            padding-left: :10px;
+            padding-right: 10px;
+            color: white;
+            background-color:#006493;
+            border-radius:5px;
+        }
+
+.page-header{
+    font-size: 150%;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    background: #e90030;
     color: white;
 }

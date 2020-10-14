@@ -1,17 +1,11 @@
-.page-header{
-    text-align: center;
-    background: green;
-    color: white;
-}
-
 .buy-now-product-description-div {
     width: 90%;
     margin: 10px auto;
 }
 
 .product-image-container-div {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 110px;
     margin: auto;
     float: left;
 }
@@ -30,6 +24,7 @@
 .product-item-text-div {
     width: 100%;
     padding-left: 10px !important;
+    color:#006493;
 }
 
 .buy-now-form-div {
@@ -50,11 +45,31 @@
     border-left: 0;
     border-right: 0;
     border-top: 0;
+    border-bottom:1px solid #006493 !important;
+}
+
+.buy-now-place-order-button{
+    padding-top:5px;
+    padding-bottom:5px;
+    font-size:120%;
+    background-color:green;
+    color:white;
 }
 
 #payment-method-header-span {
     font-size: 80% !important;
+    color:#006493;
 }
 #payment-method-span {
     font-size: 110% !important;
+    color:green;
+}
+
+.page-header{
+    font-size: 150%;
+    font-weight: bold;
+    padding: 20px;
+    text-align: center;
+    background: #e90030;
+    color: white;
 }

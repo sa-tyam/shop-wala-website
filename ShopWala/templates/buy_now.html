@@ -53,14 +53,17 @@ buy now
             <input class="buy-now-inputs" type="text" name="city" value="" placeholder="City" required>
         </div>
         <div class="buy-now-inputs-div">
-            <input class="buy-now-inputs" type="number" name="pinCode" value="" placeholder="Pin Code" required>
+            <input class="buy-now-inputs" type="text" pattern="\d*" name="pinCode" value="" maxlength = "6" placeholder="Pin Code" required>
+        </div>
+        <div class="buy-now-inputs-div">
+            <input class="buy-now-inputs" type="text" name="userDescription" value="" placeholder="Special requests">
         </div>
         <div class="buy-now-inputs-div buy-now-payment-div">
             <span id="payment-method-header-span">PAYMENT METHOD</span><br>
             <span id="payment-method-span">Cash on delivery</span>
         </div>
-        <div class="buy-now-place-order-button">
-            <input class="buy-now-inputs" type="submit" name="" value="Place Order">
+        <div>
+            <input class="buy-now-inputs buy-now-place-order-button" type="submit" name="" value="Place Order">
         </div>
 
     </form>
